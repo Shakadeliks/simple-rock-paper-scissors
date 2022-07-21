@@ -16,10 +16,10 @@ function getPlayerChoice(playerName) {
         `Rock, paper or scissors? Take your pick, ${playerName}!`,
         `So what does ${playerName} choose? Rock, paper or scissors?`
     ]
-    const playerChoice = window.prompt(
+    let playerInput = window.prompt(
         promptTexts[~~(Math.random() * promptTexts.length)]
     );
-    return playerChoice.toLowerCase();
+    return playerInput.toLowerCase().trim();
 };
 function playRound(playerChoice, computerChoice, weapons) {
     let winner;
@@ -31,6 +31,11 @@ function playRound(playerChoice, computerChoice, weapons) {
     if (weapons[playerChoice].weakTo === computerChoice) {
         alert(`${computerChoice} beats ${playerChoice}! you lose!`);
         winner = 'computer';
+        return winner;
+    }
+    if (playerChoice === computerChoice) {
+        alert(`this round was a tie!`);
+        winner = 'tie';
         return winner;
     }
 };
@@ -56,18 +61,34 @@ function game() {
     let { playerScore, computerScore } = scoreBoard;
     const playerName = getPlayerNameAndStart();
     for (let i = 0; i < 5; i++){
+        console.log('for loop iteration', i);
         if (
-            (i >= 2) &&
+            (i >= 3) &&
             (
                 playerScore >= 3 && computerScore <= 1 ||
                 computerScore >= 3 && playerScore <= 1
             )
         ) {
             playerScore > computerScore ?
-                (alert(`Congratulations, ${playerName}. YOU ARE THE WINNER!`)) : (`Better luck next Time, ${playerName}. YOU LOSE!`);
+                (alert(`Congratulations, ${playerName}. YOU ARE THE WINNER!`))
+                : (alert(`Better luck next Time, ${playerName}. YOU LOSE!`));
         } else if (i === 4) {
+            let playerChoice = getPlayerChoice(playerName);
+            if (!['rock', 'paper', 'scissors'].includes(playerChoice)) {
+                while (playerChoice !== "rock" || "paper" || "scissors") {
+                    console.log('while loop activated');
+                    playerChoice = window.prompt("Please enter a valid choice. Rock, paper or scissors.")
+                    console.log(playerChoice);
+                    if (playerChoice === "rock"
+                        || playerChoice === "paper" 
+                        || playerChoice === "scissors") {
+                        console.log('about to break')
+                        break;
+                    }
+                };
+            };
             const roundWinner = playRound(
-                playerChoice = getPlayerChoice(playerName),
+                playerChoice,
                 computerChoice = getComputerChoice(),
                 weapons
             );
@@ -79,19 +100,35 @@ function game() {
                 alert(`Better luck next Time, ${playerName}. YOU LOSE! \n SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
             }
         } else {
-            const roundWinner = playRound(
-                playerChoice = getPlayerChoice(playerName),
+            let playerChoice = getPlayerChoice(playerName);
+            if (!['rock', 'paper', 'scissors'].includes(playerChoice)) {
+                while (playerChoice !== "rock" || "paper" || "scissors") {
+                    console.log('while loop activated');
+                    playerChoice = window.prompt("Please enter a valid choice. Rock, paper or scissors.")
+                    console.log(playerChoice);
+                    if (playerChoice === "rock"
+                        || playerChoice === "paper" 
+                        || playerChoice === "scissors") {
+                        console.log('about to break')
+                        break;
+                    }
+                };
+            };
+            roundWinner = playRound(
+                playerChoice,
                 computerChoice = getComputerChoice(),
                 weapons
-            );
+            )
             if (roundWinner == 'player') {
                 playerScore++;
                 alert(`SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
-            } else {
+            } else if (roundWinner == 'computer') {
                 computerScore++;
                 alert(`SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
+            } else {
+                alert(`SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
             }
-        }
+        } 
     };
 }
 game();
