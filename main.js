@@ -105,6 +105,9 @@ function game() {
             if (computerScore > playerScore) {
                 alert(`Better luck next Time, ${playerName}. YOU LOSE! \n SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
             }
+            if (computerScore == playerScore) {
+                alert(`Fair game, this match was a tie! \n SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
+            }
         } else {
             let playerChoice = getPlayerChoice(playerName);
             if (!['rock', 'paper', 'scissors'].includes(playerChoice)) {
