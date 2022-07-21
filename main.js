@@ -69,9 +69,11 @@ function game() {
                 computerScore >= 3 && playerScore <= 1
             )
         ) {
-            playerScore > computerScore ?
-                (alert(`Congratulations, ${playerName}. YOU ARE THE WINNER!`))
-                : (alert(`Better luck next Time, ${playerName}. YOU LOSE!`));
+            if (playerScore > computerScore) {
+                (alert(`Congratulations, ${playerName}. YOU ARE THE WINNER!`));              
+            } else if ( computerScore > playerScore) {
+                (alert(`Better luck next Time, ${playerName}. YOU LOSE!`));
+            }
         } else if (i === 4) {
             let playerChoice = getPlayerChoice(playerName);
             if (!['rock', 'paper', 'scissors'].includes(playerChoice)) {
