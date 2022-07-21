@@ -95,10 +95,14 @@ function game() {
                 weapons
             );
             if (roundWinner == 'player') {
-                playerScore++;
-                alert(`Congratulations, ${playerName}. YOU ARE THE WINNER! \n SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`) ;
-            } else {
-                computerScore++;
+                playerScore++;               
+            } else if (roundWinner == 'computer') {
+                computerScore++;               
+            }
+            if (playerScore > computerScore) {
+                alert(`Congratulations, ${playerName}. YOU ARE THE WINNER! \n SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
+            }
+            if (computerScore > playerScore) {
                 alert(`Better luck next Time, ${playerName}. YOU LOSE! \n SCORE \n ${playerName}: ${playerScore} - Computer: ${computerScore}`);
             }
         } else {
